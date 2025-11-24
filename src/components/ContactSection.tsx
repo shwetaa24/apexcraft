@@ -27,19 +27,19 @@ export default function ContactSection() {
     {
       icon: Phone,
       title: 'Phone',
-      content: '+1 (234) 567-890',
-      link: 'tel:+1234567890',
+      content: '+91 7218834640',
+      link: 'tel:+91721883464',
     },
     {
       icon: Mail,
       title: 'Email',
-      content: 'info@orchid.construction',
+      content: 'shwetaajadhav24@gmail.com',
       link: 'mailto:info@orchid.construction',
     },
     {
       icon: MapPin,
       title: 'Office Address',
-      content: '123 Business Park, Suite 500, New York, NY 10001',
+      content: '123 Kolhapur, Maharashtra, India',
       link: '#',
     },
     {
@@ -93,7 +93,7 @@ export default function ContactSection() {
                   </label>
                   <Input
                     type="tel"
-                    placeholder="+1 (234) 567-890"
+                    placeholder="+91 7218834640"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="h-12 rounded-xl border-orchid-200 focus:border-orchid-500"
@@ -106,7 +106,7 @@ export default function ContactSection() {
                   </label>
                   <Input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="shwetaajadhav24@gmail.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="h-12 rounded-xl border-orchid-200 focus:border-orchid-500"
@@ -183,14 +183,14 @@ export default function ContactSection() {
             {/* Embedded Map */}
             <Card className="rounded-3xl overflow-hidden border-orchid-200 shadow-xl h-[400px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609846077!2d74.0433!3d16.7050!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0c0c0c0c0c0c1%3A0x3bc0c0c0c0c0c0c1!2sKolhapur%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Office Location"
+                title="Office Location - Kolhapur, Maharashtra, India"
               />
             </Card>
           </div>

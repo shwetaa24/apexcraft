@@ -40,32 +40,14 @@ export default function HeroSection() {
             Trusted construction partner delivering innovative architecture, quality engineering, 
             and long-lasting infrastructure for residential and commercial projects.
           </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in" style={{ animationDelay: '0.3s' }}>
-            <Button
-              size="lg"
-              className="bg-orchid-600 hover:bg-orchid-700 text-white px-8 py-6 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-            >
-              Book a Consultation
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-orchid-900 px-8 py-6 text-lg rounded-full backdrop-blur-sm bg-white/10 transition-all duration-300"
-            >
-              <Play className="mr-2 w-5 h-5" />
-              View Projects
-            </Button>
-          </div>
+         
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 fade-in" style={{ animationDelay: '0.4s' }}>
             {[
               { number: '25+', label: 'Years Experience' },
-              { number: '500+', label: 'Projects Completed' },
-              { number: '1000+', label: 'Happy Clients' },
+              { number: '200+', label: 'Projects Completed' },
+              { number: '500+', label: 'Happy Clients' },
               { number: '50+', label: 'Active Sites' },
             ].map((stat, index) => (
               <div key={index} className="text-center">

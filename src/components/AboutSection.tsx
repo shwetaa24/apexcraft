@@ -5,9 +5,9 @@ import { Card } from '@/components/ui/card'
 
 export default function AboutSection() {
   const stats = [
-    { icon: Award, value: '25+', label: 'Years of Excellence', color: 'text-orchid-600' },
-    { icon: Users, value: '500+', label: 'Completed Projects', color: 'text-purple-600' },
-    { icon: Target, value: '1000+', label: 'Happy Clients', color: 'text-orchid-600' },
+    { icon: Award, value: '15+', label: 'Years of Excellence', color: 'text-orchid-600' },
+    { icon: Users, value: '200+', label: 'Completed Projects', color: 'text-purple-600' },
+    { icon: Target, value: '500+', label: 'Happy Clients', color: 'text-orchid-600' },
     { icon: TrendingUp, value: '50+', label: 'Active Construction Sites', color: 'text-purple-600' },
   ]
 
@@ -25,7 +25,7 @@ export default function AboutSection() {
               <span className="text-orchid-600">1999</span>
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              ORCHID is a premier construction and real estate development company committed to delivering 
+              ApexCraft Construction is a premier construction and real estate development company committed to delivering 
               world-class infrastructure and architectural excellence. With over two decades of experience, 
               we have established ourselves as a trusted partner for residential, commercial, and industrial projects.
             </p>

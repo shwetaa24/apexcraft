@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,12 +20,12 @@ export default function Navigation() {
   }, [])
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/', hash: '#home' },
+    { name: 'About', href: '/', hash: '#about' },
+    { name: 'Services', href: '/', hash: '#services' },
+    { name: 'Projects', href: '/', hash: '#projects' },
+    { name: 'Testimonials', href: '/', hash: '#testimonials' },
+    { name: 'Contact', href: '/contact', hash: '#contact' },
   ]
 
   return (
@@ -37,40 +40,45 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#home" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="w-10 h-10 bg-gradient-to-br from-orchid-500 to-orchid-700 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">O</span>
               </div>
-              <span className="text-2xl font-bold text-orchid-900">ORCHID</span>
-            </a>
+              <span className="text-2xl font-bold text-orchid-900">ApexCraft Construction</span>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-orchid-600 ${
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const href = pathname === '/' && link.hash ? link.hash : link.href
+              return (
+                <Link
+                  key={link.name}
+                  href={href}
+                  className={`text-sm font-medium transition-colors hover:text-orchid-600 ${
+                    isScrolled ? 'text-gray-700' : 'text-white'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:+1234567890" className={`flex items-center gap-2 text-sm font-medium ${
+            <a href="tel:+917218834640" className={`flex items-center gap-2 text-sm font-medium ${
               isScrolled ? 'text-gray-700' : 'text-white'
             }`}>
               <Phone className="w-4 h-4" />
-              <span>+1 (234) 567-890</span>
+              <span>+91 7218834640</span>
             </a>
-            <Button className="bg-orchid-600 hover:bg-orchid-700 text-white">
-              Book Consultation
-            </Button>
+            <Link href="/contact">
+              <Button className="bg-orchid-600 hover:bg-orchid-700 text-white">
+                Book Consultation
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,24 +96,29 @@ export default function Navigation() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200 py-4">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-700 hover:text-orchid-600 font-medium px-4 py-2"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const href = pathname === '/' && link.hash ? link.hash : link.href
+                return (
+                  <Link
+                    key={link.name}
+                    href={href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-gray-700 hover:text-orchid-600 font-medium px-4 py-2"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              })}
               <div className="px-4 pt-2 border-t border-gray-200">
                 <a href="tel:+1234567890" className="flex items-center gap-2 text-gray-700 mb-4">
                   <Phone className="w-4 h-4" />
                   <span>+1 (234) 567-890</span>
                 </a>
-                <Button className="w-full bg-orchid-600 hover:bg-orchid-700 text-white">
-                  Book Consultation
-                </Button>
+                <Link href="/contact" className="block" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full bg-orchid-600 hover:bg-orchid-700 text-white">
+                    Book Consultation
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

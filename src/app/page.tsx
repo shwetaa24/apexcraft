@@ -6,7 +6,6 @@ import WhyChooseUsSection from '@/components/WhyChooseUsSection'
 import ProjectsSection from '@/components/ProjectsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ContactSection from '@/components/ContactSection'
-import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <ProjectsSection />
       <TestimonialsSection />
       <ContactSection />
-      <Footer />
     </div>
   )
 }
