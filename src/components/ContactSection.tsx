@@ -5,22 +5,50 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
+
+const initialFormState = {
+  name: '',
+  phone: '',
+  email: '',
+  projectType: '',
+  message: '',
+}
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    projectType: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState(initialFormState)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
+    setStatus('idle')
+    setErrorMessage('')
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || 'Failed to submit request')
+      }
+
+      setStatus('success')
+      setFormData(initialFormState)
+    } catch (error) {
+      setStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -34,7 +62,7 @@ export default function ContactSection() {
       icon: Mail,
       title: 'Email',
       content: 'shwetaajadhav24@gmail.com',
-      link: 'mailto:info@orchid.construction',
+      link: 'mailto:shwetaajadhav24@gmail.com',
     },
     {
       icon: MapPin,
@@ -93,7 +121,7 @@ export default function ContactSection() {
                   </label>
                   <Input
                     type="tel"
-                    placeholder="+91 7218834640"
+                    placeholder="+91 123445678"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="h-12 rounded-xl border-orchid-200 focus:border-orchid-500"
@@ -106,7 +134,7 @@ export default function ContactSection() {
                   </label>
                   <Input
                     type="email"
-                    placeholder="shwetaajadhav24@gmail.com"
+                    placeholder="abc@gmail.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="h-12 rounded-xl border-orchid-200 focus:border-orchid-500"
@@ -148,12 +176,31 @@ export default function ContactSection() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full h-12 bg-orchid-600 hover:bg-orchid-700 text-white rounded-xl text-lg font-semibold"
-              >
-                Submit Request
-              </Button>
+              <div className="space-y-4">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-12 bg-orchid-600 hover:bg-orchid-700 text-white rounded-xl text-lg font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                </Button>
+
+                <div aria-live="polite" className="min-h-12">
+                  {status === 'success' && (
+                    <Alert className="border-green-200 bg-green-50 text-green-800">
+                      <CheckCircle2 className="text-green-600" />
+                      <AlertDescription>Your consultation request has been submitted successfully. We will contact you shortly.</AlertDescription>
+                    </Alert>
+                  )}
+
+                  {status === 'error' && (
+                    <Alert variant="destructive" className="border-red-200 bg-red-50 text-red-800">
+                      <AlertCircle className="text-red-600" />
+                      <AlertDescription>{errorMessage}</AlertDescription>
+                    </Alert>
+                  )}
+                </div>
+              </div>
             </form>
           </Card>
 

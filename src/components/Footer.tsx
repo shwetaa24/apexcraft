@@ -28,7 +28,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gradient-to-br from-orchid-900 via-purple-900 to-orchid-800 text-white relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-apexcraft-900 via-purple-900 to-orchid-800 text-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -45,7 +45,7 @@ export default function Footer() {
               <div className="w-12 h-12 bg-gradient-to-br from-orchid-400 to-purple-500 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-2xl">O</span>
               </div>
-              <span className="text-2xl font-bold">ORCHID</span>
+              <span className="text-2xl font-bold">ApexCraft Construction</span>
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
               Building dreams with precision. Your trusted partner for premium construction and real estate development.
@@ -56,7 +56,7 @@ export default function Footer() {
                   key={index}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-orchid-500 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-apexcraft-500 flex items-center justify-center transition-all duration-300 hover:scale-110"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -90,9 +90,9 @@ export default function Footer() {
                 <li key={index}>
                   <a
                     href="#services"
-                    className="text-gray-300 hover:text-orchid-300 transition-colors flex items-center gap-2 group"
+                    className="text-gray-300 hover:text-apexcraft-300 transition-colors flex items-center gap-2 group"
                   >
-                    <span className="w-1 h-1 bg-orchid-400 rounded-full group-hover:w-2 transition-all" />
+                    <span className="w-1 h-1 bg-apexcraft-400 rounded-full group-hover:w-2 transition-all" />
                     {service}
                   </a>
                 </li>
@@ -106,20 +106,20 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+917218834640"
                   className="flex items-start gap-3 text-gray-300 hover:text-orchid-300 transition-colors"
                 >
                   <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
-                  <span>+1 (234) 567-890</span>
+                  <span>+91 7218834640</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@orchid.construction"
+                  href="mailto:shwetaajadhav24@gmail.com"
                   className="flex items-start gap-3 text-gray-300 hover:text-orchid-300 transition-colors"
                 >
                   <Mail className="w-5 h-5 mt-1 flex-shrink-0" />
-                  <span>info@orchid.construction</span>
+                  <span>shwetaajadhav24@gmail.com</span>
                 </a>
               </li>
               <li>
@@ -136,13 +136,13 @@ export default function Footer() {
         <div className="py-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} ORCHID Construction & Real Estate. All rights reserved. | Developed by Shivam
+              © {currentYear} ApexCraft Construction & Real Estate. All rights reserved. | Developed by Shivam
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-400 hover:text-orchid-300 text-sm transition-colors">
+              <a href="#" className="text-gray-400 hover:text-apexcraft-300 text-sm transition-colors">
                 Privacy Policy
               </a>
-              <a href="#" className="text-gray-400 hover:text-orchid-300 text-sm transition-colors">
+              <a href="#" className="text-gray-400 hover:text-apexcraft-300 text-sm transition-colors">
                 Terms of Service
               </a>
             </div>

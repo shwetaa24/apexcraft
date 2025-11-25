@@ -15,7 +15,7 @@ export default function TestimonialsSection() {
       role: 'Homeowner',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      text: 'ORCHID transformed our vision into reality. Their attention to detail and commitment to quality is unmatched. Our dream home was completed on time and exceeded all expectations.',
+      text: 'ApexCraft Construction transformed our vision into reality. Their attention to detail and commitment to quality is unmatched. Our dream home was completed on time and exceeded all expectations.',
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
       role: 'Business Owner',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      text: 'The team at ORCHID handled our commercial project with utmost professionalism. Their innovative approach and transparent communication made the entire process seamless.',
+      text: 'The team at ApexCraft Construction handled our commercial project with utmost professionalism. Their innovative approach and transparent communication made the entire process seamless.',
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ export default function TestimonialsSection() {
       role: 'Interior Designer',
       image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      text: 'Working with ORCHID was a pleasure. They understood our design requirements perfectly and delivered exceptional results. Their craftsmanship is truly world-class.',
+      text: 'Working with ApexCraft Construction was a pleasure. They understood our design requirements perfectly and delivered exceptional results. Their craftsmanship is truly world-class.',
     },
     {
       id: 4,
@@ -39,7 +39,7 @@ export default function TestimonialsSection() {
       role: 'Real Estate Developer',
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
       rating: 5,
-      text: 'ORCHID has been our trusted partner for multiple projects. Their expertise in construction and project management is outstanding. Highly recommended!',
+      text: 'ApexCraft Construction has been our trusted partner for multiple projects. Their expertise in construction and project management is outstanding. Highly recommended!',
     },
   ]
 
@@ -68,7 +68,7 @@ export default function TestimonialsSection() {
             <span className="text-orchid-600">Say</span>
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Don't just take our word for it. Here's what our satisfied clients have to say about working with ORCHID.
+            Don't just take our word for it. Here's what our satisfied clients have to say about working with ApexCraft Construction.
           </p>
         </div>
 

@@ -49,7 +49,7 @@ export default function WhyChooseUsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-semibold mb-6 border border-white/20">
-            Why Choose ORCHID
+            Why Choose ApexCraft Construction?
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             Your Trusted Construction{' '}
@@ -58,7 +58,7 @@ export default function WhyChooseUsSection() {
             </span>
           </h2>
           <p className="text-lg text-gray-200 leading-relaxed">
-            Experience the ORCHID difference with our commitment to excellence, innovation, and customer satisfaction.
+            Experience the ApexCraft Construction difference with our commitment to excellence, innovation, and customer satisfaction.
           </p>
         </div>
 

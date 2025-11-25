@@ -110,9 +110,9 @@ export default function Navigation() {
                 )
               })}
               <div className="px-4 pt-2 border-t border-gray-200">
-                <a href="tel:+1234567890" className="flex items-center gap-2 text-gray-700 mb-4">
+                <a href="tel:+917218834640" className="flex items-center gap-2 text-gray-700 mb-4">
                   <Phone className="w-4 h-4" />
-                  <span>+1 (234) 567-890</span>
+                  <span>+91 7218834640</span>
                 </a>
                 <Link href="/contact" className="block" onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="w-full bg-orchid-600 hover:bg-orchid-700 text-white">
