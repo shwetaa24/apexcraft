@@ -27,12 +27,9 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                // Building the app
                 sh 'npm run build'
-                
-                // Fixed Lint Command: 
-                // We run it directly to avoid directory confusion
-                sh 'npx next lint .' 
+                // Remove the dot (.) or any folder names after lint
+                sh 'npm run lint' 
             }
         }
 
