@@ -52,24 +52,7 @@ export default function ContactSection() {
   }
 
   const contactInfo = [
-    {
-      icon: Phone,
-      title: 'Phone',
-      content: '+91 7218834640',
-      link: 'tel:+91721883464',
-    },
-    {
-      icon: Mail,
-      title: 'Email',
-      content: 'shwetaajadhav24@gmail.com',
-      link: 'mailto:shwetaajadhav24@gmail.com',
-    },
-    {
-      icon: MapPin,
-      title: 'Office Address',
-      content: '123 Kolhapur, Maharashtra, India',
-      link: '#',
-    },
+
     {
       icon: Clock,
       title: 'Business Hours',
