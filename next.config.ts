@@ -1,36 +1,25 @@
 import type { NextConfig } from "next";
-import path from "node:path";
-
-const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader.js');
 
 const nextConfig: NextConfig = {
+  output: "standalone", // CRITICAL for your Jenkins/Docker assignment
+
+  // In newer Next.js versions, turbo is a TOP-LEVEL property
+  // turbopack: {
+  //   rules: {
+  //     "*.{jsx,tsx}": ["./src/visual-edits/component-tagger-loader.js"]
+  //   }
+  // },
+
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-      {
-        protocol: 'http',
-        hostname: '**',
-      },
+      { protocol: 'https', hostname: '**' },
+      { protocol: 'http', hostname: '**' },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
+
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  turbopack: {
-    rules: {
-      "*.{jsx,tsx}": {
-        loaders: [LOADER]
-      }
-    }
   }
 };
 
 export default nextConfig;
-// Orchids restart: 1763826825913
