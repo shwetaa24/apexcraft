@@ -26,12 +26,12 @@ pipeline {
         }
 
         stage('Build & Test') {
-            steps {
-                sh 'npm run build'
-                // Remove the dot (.) or any folder names after lint
-                sh 'npm run lint' 
-            }
-        }
+    steps {
+        sh 'npm run build'
+        // Force the linter to look at the current root directory
+        sh 'npx next lint --dir .' 
+    }
+}
 
         stage('Docker Build & Versioning') {
             steps {
