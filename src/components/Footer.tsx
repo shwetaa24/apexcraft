@@ -43,9 +43,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-orchid-400 to-purple-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-2xl">O</span>
+                <span className="text-white font-bold text-2xl">S</span>
               </div>
-              <span className="text-2xl font-bold">ApexCraft Construction</span>
+              <span className="text-2xl font-bold">Sarthi Construction</span>
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
               Building dreams with precision. Your trusted partner for premium construction and real estate development.
@@ -136,7 +136,7 @@ export default function Footer() {
         <div className="py-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} ApexCraft Construction & Real Estate. All rights reserved. | Developed by Shivam
+              © {currentYear} Sarthi Construction & Real Estate. All rights reserved. | Developed by Shivam
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-gray-400 hover:text-apexcraft-300 text-sm transition-colors">

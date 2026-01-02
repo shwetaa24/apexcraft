@@ -30,11 +30,10 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white/95 backdrop-blur-md shadow-lg'
+        : 'bg-transparent'
+        }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -42,9 +41,9 @@ export default function Navigation() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
               <div className="w-10 h-10 bg-gradient-to-br from-orchid-500 to-orchid-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">O</span>
+                <span className="text-white font-bold text-xl">S</span>
               </div>
-              <span className="text-2xl font-bold text-orchid-900">ApexCraft Construction</span>
+              <span className="text-2xl font-bold text-orchid-900" style={{ fontFamily: "'Playfair Display', serif" }}>Sarthi Construction</span>
             </Link>
           </div>
 
@@ -56,9 +55,8 @@ export default function Navigation() {
                 <Link
                   key={link.name}
                   href={href}
-                  className={`text-sm font-medium transition-colors hover:text-orchid-600 ${
-                    isScrolled ? 'text-gray-700' : 'text-white'
-                  }`}
+                  className={`text-sm font-medium transition-colors hover:text-orchid-600 ${isScrolled ? 'text-gray-700' : 'text-white'
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -68,9 +66,8 @@ export default function Navigation() {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:+917218834640" className={`flex items-center gap-2 text-sm font-medium ${
-              isScrolled ? 'text-gray-700' : 'text-white'
-            }`}>
+            <a href="tel:+917218834640" className={`flex items-center gap-2 text-sm font-medium ${isScrolled ? 'text-gray-700' : 'text-white'
+              }`}>
               <Phone className="w-4 h-4" />
               <span>+91 7218834640</span>
             </a>
@@ -84,9 +81,8 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 ${
-              isScrolled ? 'text-gray-700' : 'text-white'
-            }`}
+            className={`md:hidden p-2 ${isScrolled ? 'text-gray-700' : 'text-white'
+              }`}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

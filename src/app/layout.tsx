@@ -5,7 +5,7 @@ import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "ORCHID - Premium Construction & Real Estate | Building Dreams With Precision",
+  title: "Sarthi Construction - Premium Construction & Real Estate | Building Dreams With Precision",
   description: "Trusted construction partner delivering innovative architecture, quality engineering, and long-lasting infrastructure. Specializing in residential, commercial, and industrial projects.",
   keywords: ["construction", "real estate", "architecture", "building", "renovation", "commercial construction", "residential construction", "interior design"],
 };

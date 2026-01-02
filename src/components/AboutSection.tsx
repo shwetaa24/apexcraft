@@ -25,13 +25,13 @@ export default function AboutSection() {
               <span className="text-orchid-600">1999</span>
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              ApexCraft Construction is a premier construction and real estate development company committed to delivering 
-              world-class infrastructure and architectural excellence. With over two decades of experience, 
+              Sarthi Construction is a premier construction and real estate development company committed to delivering
+              world-class infrastructure and architectural excellence. With over two decades of experience,
               we have established ourselves as a trusted partner for residential, commercial, and industrial projects.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Our mission is to transform visions into reality through innovative design, quality craftsmanship, 
-              and sustainable building practices. We believe in creating spaces that inspire, endure, and add 
+              Our mission is to transform visions into reality through innovative design, quality craftsmanship,
+              and sustainable building practices. We believe in creating spaces that inspire, endure, and add
               value to communities.
             </p>
 
