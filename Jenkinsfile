@@ -78,16 +78,20 @@ pipeline {
         }
     }
 
-    post {
+   post {
         success {
-            echo "Pipeline completed successfully!"
-            // This sends a green message to Slack
-            slackSend(color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}] - ${env.BUILD_URL}")
+            slackSend(
+                tokenCredentialId: 'slack-webhook-url', 
+                color: 'good', 
+                message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
+            )
         }
         failure {
-            echo "Pipeline failed."
-            // This sends a red message to Slack
-            slackSend(color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}] - ${env.BUILD_URL}")
+            slackSend(
+                tokenCredentialId: 'slack-webhook-url', 
+                color: 'danger', 
+                message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
+            )
         }
     }
 }
