@@ -79,7 +79,15 @@ pipeline {
     }
 
     post {
-        success { echo "Pipeline completed successfully!" }
-        failure { echo "Pipeline failed." }
+        success {
+            echo "Pipeline completed successfully!"
+            // This sends a green message to Slack
+            slackSend(color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}] - ${env.BUILD_URL}")
+        }
+        failure {
+            echo "Pipeline failed."
+            // This sends a red message to Slack
+            slackSend(color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}] - ${env.BUILD_URL}")
+        }
     }
 }
