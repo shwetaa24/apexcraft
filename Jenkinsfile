@@ -78,20 +78,15 @@ pipeline {
         }
     }
 
-   post {
+  post {
         success {
-            slackSend(
-                tokenCredentialId: 'slack-webhook-url', 
-                color: 'good', 
-                message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
-            )
+            echo "Pipeline completed successfully!"
+            // Ensure 'slack-webhook-url' is the ID you gave in the Credentials menu
+            slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
         }
         failure {
-            slackSend(
-                tokenCredentialId: 'slack-webhook-url', 
-                color: 'danger', 
-                message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
-            )
+            echo "Pipeline failed."
+            slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
         }
     }
 }
