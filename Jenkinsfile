@@ -19,23 +19,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install' 
+                sh 'npm install'
             }
         }
 
         stage('Build & Test') {
             steps {
-                // Ensure the build generates the standalone folder
                 sh 'npm run build'
-                sh 'npm run lint || true' 
+                sh 'npm run lint || true'
             }
         }
 
-        stage('Docker Build & Versioning') {
+        stage('Docker Build') {
             steps {
                 script {
-                    echo "Building Docker image..."
-                    // We use --no-cache to ensure the standalone folder is freshly detected
                     sh "docker build --no-cache -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
                 }
@@ -43,45 +40,32 @@ pipeline {
         }
 
         stage('Deploy') {
-    steps {
-        script {
-            echo "Cleaning up old container..."
-            // Use -f to force remove even if it's stuck
-            sh "docker rm -f ${CONTAINER_NAME} || true"
-            
-            echo "Starting new container..."
-            sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
-        }
-    }
-}
-
-        stage('Health Check & Rollback') {
             steps {
                 script {
-                    echo "Waiting for app..."
-                    sleep 15 
-                    try {
-                        sh "curl --fail http://localhost:${APP_PORT} || exit 1"
-                    } catch (Exception e) {
-                        sh "docker stop ${CONTAINER_NAME} || true"
-                        sh "docker rm ${CONTAINER_NAME} || true"
-                        sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:latest"
-                        error("Health check failed.")
-                    }
+                    // Force remove old container to prevent "Name in use" error
+                    sh "docker rm -f ${CONTAINER_NAME} || true"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                }
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                script {
+                    echo "Waiting for app to start..."
+                    sleep 10
+                    sh "curl --fail http://localhost:${APP_PORT} || exit 1"
                 }
             }
         }
     }
 
-   post {
-    always {
-        // This ensures a notification is sent regardless of success or failure
-        slackSend(
-            channel: '#general', 
-            color: currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger',
-            message: "Build ${env.BUILD_NUMBER} for ${env.JOB_NAME} settled as ${currentBuild.currentResult}: ${env.BUILD_URL}"
-        )
+    post {
+        success {
+            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Build #${env.BUILD_NUMBER} Success: ${env.JOB_NAME}")
+        }
+        failure {
+            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Build #${env.BUILD_NUMBER} Failed: ${env.JOB_NAME}")
+        }
     }
-}
-}
 }
