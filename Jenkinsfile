@@ -62,10 +62,16 @@ environment {
 post {
     success {
         script {
-            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_URL')]) {
-                // CHANGE: Use single quotes ('') instead of double quotes ("") for the curl command
-                // AND: Access the variable as \$SLACK_URL or SLACK_URL
-                sh 'curl -X POST -H "Content-type: application/json" --data \'{"text":"✅ Build #$BUILD_NUMBER Success!"}\' $SLACK_URL'
+            // Using the Credential ID we just updated
+            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_WEBHOOK')]) {
+                sh 'curl -X POST -H "Content-type: application/json" --data "{\\"text\\":\\"✅ Build #$BUILD_NUMBER Success! Application is live on port 3000.\\"}" $SLACK_WEBHOOK'
+            }
+        }
+    }
+    failure {
+        script {
+            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_WEBHOOK')]) {
+                sh 'curl -X POST -H "Content-type: application/json" --data "{\\"text\\":\\"❌ Build #$BUILD_NUMBER Failed! Check Jenkins logs.\\"}" $SLACK_WEBHOOK'
             }
         }
     }
