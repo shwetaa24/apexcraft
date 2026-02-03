@@ -43,14 +43,17 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                script {
-                    sh "docker stop ${CONTAINER_NAME} || true"
-                    sh "docker rm ${CONTAINER_NAME} || true"
-                    sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                }
-            }
+    steps {
+        script {
+            echo "Cleaning up old container..."
+            // Use -f to force remove even if it's stuck
+            sh "docker rm -f ${CONTAINER_NAME} || true"
+            
+            echo "Starting new container..."
+            sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
         }
+    }
+}
 
         stage('Health Check & Rollback') {
             steps {
@@ -70,13 +73,13 @@ pipeline {
         }
     }
 
-    post {
+   post {
     success {
-        // Only use the tokenCredentialId
-        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+        slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
     }
     failure {
-        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+        // You MUST have the channel: parameter here
+        slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
     }
 }
 }
