@@ -72,11 +72,11 @@ pipeline {
 
     post {
     success {
-        // By removing 'channel', Jenkins lets the Webhook use its own preset channel
-        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Pipeline Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+        // Only use the tokenCredentialId
+        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
     }
     failure {
-        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Pipeline Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
     }
 }
 }
