@@ -2,12 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // macOS Specific Path for Docker Socket
         DOCKER_HOST = "unix:///Users/shwetaa/.docker/run/docker.sock"
-        
-        // Tells Jenkins where to find npm/node on macOS
         PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-        
         DOCKER_IMAGE = "apexcraft-app"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
         CONTAINER_NAME = "apexcraft-container"
@@ -23,16 +19,14 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                // Use 'npm install' for the first time if 'npm ci' fails
                 sh 'npm install' 
             }
         }
 
         stage('Build & Test') {
             steps {
+                // Ensure the build generates the standalone folder
                 sh 'npm run build'
-                // This version is standard and the '|| true' ensures the pipeline 
-                // continues to the Docker stage even if there are lint warnings.
                 sh 'npm run lint || true' 
             }
         }
@@ -41,7 +35,8 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image..."
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    // We use --no-cache to ensure the standalone folder is freshly detected
+                    sh "docker build --no-cache -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
                 }
             }
@@ -50,7 +45,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    echo "Deploying to target environment..."
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
                     sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
@@ -61,35 +55,29 @@ pipeline {
         stage('Health Check & Rollback') {
             steps {
                 script {
-                    echo "Waiting for application to initialize..."
+                    echo "Waiting for app..."
                     sleep 15 
-                    
                     try {
-                        echo "Performing health check..."
                         sh "curl --fail http://localhost:${APP_PORT} || exit 1"
-                        echo "Deployment verified successfully."
                     } catch (Exception e) {
-                        echo "Health check failed! Initiating Rollback..."
                         sh "docker stop ${CONTAINER_NAME} || true"
                         sh "docker rm ${CONTAINER_NAME} || true"
-                        // Rollback logic: restart the 'latest' stable image
                         sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${DOCKER_IMAGE}:latest"
-                        error("Pipeline failed: Health check failure.")
+                        error("Health check failed.")
                     }
                 }
             }
         }
     }
 
-  post {
+    post {
         success {
-            echo "Pipeline completed successfully!"
-            // Ensure 'slack-webhook-url' is the ID you gave in the Credentials menu
-            slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+            // Added 'channel' parameter to fix the Slack error
+            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
         }
         failure {
-            echo "Pipeline failed."
-            slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+            // Added 'channel' parameter to fix the Slack error
+            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
         }
     }
 }

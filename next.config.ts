@@ -1,11 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone", // DO NOT REMOVE THIS LINE
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: '**' },
-      { protocol: 'http', hostname: '**' },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: '**' }],
   },
   typescript: {
     ignoreBuildErrors: true, 
@@ -13,6 +11,6 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   }
-} as any; // Add 'as any' here to solve the 'eslint' property error
+} as any;
 
 export default nextConfig;
