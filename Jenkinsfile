@@ -62,21 +62,14 @@ environment {
 post {
     success {
         script {
-            // Using the exact curl command that worked in your terminal
-            sh """
-            curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"✅ Jenkins Build Success! Project: ${env.JOB_NAME} #${env.BUILD_NUMBER}"}' \
-            https://hooks.slack.com/services/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
-            """
-        }
-    }
-    failure {
-        script {
-            sh """
-            curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"❌ Jenkins Build Failed! Project: ${env.JOB_NAME} #${env.BUILD_NUMBER}"}' \
-            https://hooks.slack.com/services/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
-            """
+            // We use 'slack_url' which we will define in Jenkins
+            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_URL')]) {
+                sh """
+                curl -X POST -H 'Content-type: application/json' \
+                --data '{"text":"✅ Build #${env.BUILD_NUMBER} Success!"}' \
+                ${SLACK_URL}
+                """
+            }
         }
     }
 }
