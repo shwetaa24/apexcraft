@@ -60,18 +60,11 @@ environment {
         }
     }
 post {
-    success {
+    always {
         script {
-            // Using the Credential ID we just updated
-            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_WEBHOOK')]) {
-                sh 'curl -X POST -H "Content-type: application/json" --data "{\\"text\\":\\"✅ Build #$BUILD_NUMBER Success! Application is live on port 3000.\\"}" $SLACK_WEBHOOK'
-            }
-        }
-    }
-    failure {
-        script {
-            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_WEBHOOK')]) {
-                sh 'curl -X POST -H "Content-type: application/json" --data "{\\"text\\":\\"❌ Build #$BUILD_NUMBER Failed! Check Jenkins logs.\\"}" $SLACK_WEBHOOK'
+            withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'WEBHOOK')]) {
+                // We use single quotes (') for the SH command to prevent Groovy interference
+                sh 'curl -X POST -H "Content-type: application/json" --data "{\\"text\\":\\"🚀 Build #$BUILD_NUMBER finished! Status: $currentBuild.currentResult\\"}" $WEBHOOK'
             }
         }
     }
