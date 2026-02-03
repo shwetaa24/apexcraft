@@ -62,13 +62,10 @@ environment {
 post {
     success {
         script {
-            // We use 'slack_url' which we will define in Jenkins
             withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_URL')]) {
-                sh """
-                curl -X POST -H 'Content-type: application/json' \
-                --data '{"text":"✅ Build #${env.BUILD_NUMBER} Success!"}' \
-                ${SLACK_URL}
-                """
+                // CHANGE: Use single quotes ('') instead of double quotes ("") for the curl command
+                // AND: Access the variable as \$SLACK_URL or SLACK_URL
+                sh 'curl -X POST -H "Content-type: application/json" --data \'{"text":"✅ Build #$BUILD_NUMBER Success!"}\' $SLACK_URL'
             }
         }
     }
