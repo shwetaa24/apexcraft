@@ -74,12 +74,14 @@ pipeline {
     }
 
    post {
-    success {
-        slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+    always {
+        // This ensures a notification is sent regardless of success or failure
+        slackSend(
+            channel: '#general', 
+            color: currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger',
+            message: "Build ${env.BUILD_NUMBER} for ${env.JOB_NAME} settled as ${currentBuild.currentResult}: ${env.BUILD_URL}"
+        )
     }
-    failure {
-        // You MUST have the channel: parameter here
-        slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
-    }
+}
 }
 }
