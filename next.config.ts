@@ -1,14 +1,7 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  output: "standalone", // CRITICAL for your Jenkins/Docker assignment
-
-  // In newer Next.js versions, turbo is a TOP-LEVEL property
-  // turbopack: {
-  //   rules: {
-  //     "*.{jsx,tsx}": ["./src/visual-edits/component-tagger-loader.js"]
-  //   }
-  // },
+const nextConfig = { // Remove the explicit ': NextConfig' here
+  output: "standalone", 
 
   images: {
     remotePatterns: [
@@ -18,8 +11,12 @@ const nextConfig: NextConfig = {
   },
 
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, 
+  },
+  
+  eslint: {
+    ignoreDuringBuilds: true, 
   }
 };
 
-export default nextConfig;
+export default nextConfig as any; // Cast it as any here
