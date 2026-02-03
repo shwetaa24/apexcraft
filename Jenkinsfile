@@ -2,7 +2,10 @@ pipeline {
     agent any
 
     environment {
-        // 👇 ADD THIS LINE - It tells Jenkins to look in the Homebrew folder for npm
+        // macOS Specific Path for Docker Socket
+        DOCKER_HOST = "unix:///Users/shwetaa/.docker/run/docker.sock"
+        
+        // Tells Jenkins where to find npm/node on macOS
         PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
         
         DOCKER_IMAGE = "apexcraft-app"
