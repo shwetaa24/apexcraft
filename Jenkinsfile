@@ -1,8 +1,8 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_HOST = "unix:///Users/shwetaa/.docker/run/docker.sock"
+environment {
+        // Using the standard path which points to your user path automatically
+        DOCKER_HOST = "unix:///var/run/docker.sock"
         PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
         DOCKER_IMAGE = "apexcraft-app"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
@@ -59,13 +59,25 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Build #${env.BUILD_NUMBER} Success: ${env.JOB_NAME}")
-        }
-        failure {
-            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Build #${env.BUILD_NUMBER} Failed: ${env.JOB_NAME}")
+post {
+    success {
+        script {
+            // Using the exact curl command that worked in your terminal
+            sh """
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"✅ Jenkins Build Success! Project: ${env.JOB_NAME} #${env.BUILD_NUMBER}"}' \
+            https://hooks.slack.com/services/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
+            """
         }
     }
+    failure {
+        script {
+            sh """
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"❌ Jenkins Build Failed! Project: ${env.JOB_NAME} #${env.BUILD_NUMBER}"}' \
+            https://hooks.slack.com/services/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
+            """
+        }
+    }
+}
 }
