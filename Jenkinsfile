@@ -71,13 +71,12 @@ pipeline {
     }
 
     post {
-        success {
-            // Added 'channel' parameter to fix the Slack error
-            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
-        }
-        failure {
-            // Added 'channel' parameter to fix the Slack error
-            slackSend(channel: '#general', tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
-        }
+    success {
+        // By removing 'channel', Jenkins lets the Webhook use its own preset channel
+        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'good', message: "✅ Pipeline Success: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
     }
+    failure {
+        slackSend(tokenCredentialId: 'slack-webhook-url', color: 'danger', message: "❌ Pipeline Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]")
+    }
+}
 }
